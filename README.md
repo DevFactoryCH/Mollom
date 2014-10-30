@@ -17,7 +17,7 @@ update `composer.json` file:
 ```json
 {
     "require": {
-        "devfactory/mollom": "0.1.2-alpha"
+        "devfactory/mollom": "1.0.0"
     }
 }
 ```

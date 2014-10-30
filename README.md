@@ -42,7 +42,7 @@ alias => array(
 ##How to use captcha
 in your HTML form add following code:
 
-```html
+```php
 {{ Mollom::captcha('login') }}
 {{ Form::text('input_captcha') }}
 

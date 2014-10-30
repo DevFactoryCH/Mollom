@@ -392,10 +392,7 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     $this->assertFalse($mock->validate($solution, $parameters));
   }
 
-  /**
-   * Test comment ham
-   */
-  public function testCommentHam() {
+  public function mockComment($spamClassification, $response = false) {
     // Prepare
     $comment = array(
       'title' => 'MOCK_TITLE',
@@ -407,7 +404,9 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     $userid = 'MOCK_USER_ID';
     $_SERVER['REMOTE_ADDR'] = 'MOCK_ADDR';
 
-    $response = array('id' => 'MOCK_ID', 'spamClassification' => 'ham');
+    if(!$response){
+      $response = array('id' => 'MOCK_ID', 'spamClassification' => $spamClassification);
+    }
 
     // Mock internal method
     $mock = $this->getMock('Devfactory\Mollom\Client', array('checkContent'));
@@ -421,7 +420,15 @@ class ClientTest extends PHPUnit_Framework_TestCase {
         'authorId' => $userid, // If the author is logged in.
       ))->will($this->returnValue($response));
 
-    $this->assertEquals('ham', $mock->comment($comment, $userid));
+    return $mock->comment($comment, $userid);
+  }
+
+  /**
+   * Test comment ham
+   */
+  public function testCommentHam() {
+    $result = $this->mockComment('ham');
+    $this->assertEquals('ham', $result);
   }
 
 
@@ -429,129 +436,32 @@ class ClientTest extends PHPUnit_Framework_TestCase {
    * Test comment unsure
    */
   public function testCommentUnsure() {
-    // Prepare
-    $comment = array(
-      'title' => 'MOCK_TITLE',
-      'body' => 'MOCK_BODY',
-      'name' => 'MOCK_NAME',
-      'mail' => 'MOCK_MAIL'
-    );
-
-    $userid = 'MOCK_USER_ID';
-    $_SERVER['REMOTE_ADDR'] = 'MOCK_ADDR';
-
-    $response = array('id' => 'MOCK_ID', 'spamClassification' => 'unsure');
-
-    // Mock internal method
-    $mock = $this->getMock('Devfactory\Mollom\Client', array('checkContent'));
-    $mock->expects($this->once())->method('checkContent')->with(array(
-        'checks' => array('spam'),
-        'postTitle' => $comment['title'],
-        'postBody' => $comment['body'],
-        'authorMail' => $comment['mail'],
-        'authorName' => $comment['name'],
-        'authorIp' => $_SERVER['REMOTE_ADDR'],
-        'authorId' => $userid, // If the author is logged in.
-      ))->will($this->returnValue($response));
-
-    $this->assertEquals('unsure', $mock->comment($comment, $userid));
+    $result = $this->mockComment('unsure');
+    $this->assertEquals('unsure', $result);
   }
 
   /**
    * Test comment spam
    */
   public function testCommentSpam() {
-    // Prepare
-    $comment = array(
-      'title' => 'MOCK_TITLE',
-      'body' => 'MOCK_BODY',
-      'name' => 'MOCK_NAME',
-      'mail' => 'MOCK_MAIL'
-    );
-
-    $userid = 'MOCK_USER_ID';
-    $_SERVER['REMOTE_ADDR'] = 'MOCK_ADDR';
-
-    $response = array('id' => 'MOCK_ID', 'spamClassification' => 'spam');
-
-    // Mock internal method
-    $mock = $this->getMock('Devfactory\Mollom\Client', array('checkContent'));
-    $mock->expects($this->once())->method('checkContent')->with(array(
-        'checks' => array('spam'),
-        'postTitle' => $comment['title'],
-        'postBody' => $comment['body'],
-        'authorMail' => $comment['mail'],
-        'authorName' => $comment['name'],
-        'authorIp' => $_SERVER['REMOTE_ADDR'],
-        'authorId' => $userid, // If the author is logged in.
-      ))->will($this->returnValue($response));
-
-    $this->assertEquals('spam', $mock->comment($comment, $userid));
+    $result = $this->mockComment('spam');
+    $this->assertEquals('spam', $result);
   }
 
   /**
    * Test comment exception unclassified
    */
   public function testCommentUnclassified() {
-    // Prepare
-    $comment = array(
-      'title' => 'MOCK_TITLE',
-      'body' => 'MOCK_BODY',
-      'name' => 'MOCK_NAME',
-      'mail' => 'MOCK_MAIL'
-    );
-
-    $userid = 'MOCK_USER_ID';
-    $_SERVER['REMOTE_ADDR'] = 'MOCK_ADDR';
-
-    $response = array('id' => 'MOCK_ID', 'spamClassification' => 'unclassified');
-
-    // Mock internal method
-    $mock = $this->getMock('Devfactory\Mollom\Client', array('checkContent'));
-    $mock->expects($this->once())->method('checkContent')->with(array(
-        'checks' => array('spam'),
-        'postTitle' => $comment['title'],
-        'postBody' => $comment['body'],
-        'authorMail' => $comment['mail'],
-        'authorName' => $comment['name'],
-        'authorIp' => $_SERVER['REMOTE_ADDR'],
-        'authorId' => $userid, // If the author is logged in.
-      ))->will($this->returnValue($response));
-
     $this->setExpectedException('\Devfactory\Mollom\Exceptions\UnknownSpamClassificationException');
-    $mock->comment($comment, $userid);
+    $result = $this->mockComment('unclassified');
   }
 
 /**
    * Test comment exception unclassified
    */
   public function testCommentUnavailable() {
-    // Prepare
-    $comment = array(
-      'title' => 'MOCK_TITLE',
-      'body' => 'MOCK_BODY',
-      'name' => 'MOCK_NAME',
-      'mail' => 'MOCK_MAIL'
-    );
-
-    $userid = 'MOCK_USER_ID';
-    $_SERVER['REMOTE_ADDR'] = 'MOCK_ADDR';
-
     $response = array('spamClassification' => 'unclassified');
-
-    // Mock internal method
-    $mock = $this->getMock('Devfactory\Mollom\Client', array('checkContent'));
-    $mock->expects($this->once())->method('checkContent')->with(array(
-        'checks' => array('spam'),
-        'postTitle' => $comment['title'],
-        'postBody' => $comment['body'],
-        'authorMail' => $comment['mail'],
-        'authorName' => $comment['name'],
-        'authorIp' => $_SERVER['REMOTE_ADDR'],
-        'authorId' => $userid, // If the author is logged in.
-      ))->will($this->returnValue($response));
-
     $this->setExpectedException('\Devfactory\Mollom\Exceptions\SystemUnavailableException');
-    $mock->comment($comment, $userid);
+    $result = $this->mockComment('unclassified', $response);
   }
 }

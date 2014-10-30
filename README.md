@@ -5,6 +5,10 @@ Mollom for laravel 4
 
 [![Build Status](https://travis-ci.org/DevFactoryCH/mollom.svg)](https://travis-ci.org/DevFactoryCH/mollom)
 
+[![Code Climate](https://codeclimate.com/github/DevFactoryCH/mollom/badges/gpa.svg)](https://codeclimate.com/github/DevFactoryCH/mollom)
+
+[![Test Coverage](https://codeclimate.com/github/DevFactoryCH/mollom/badges/coverage.svg)](https://codeclimate.com/github/DevFactoryCH/mollom)
+
 ##How to setup
 
 update `composer.json` file:

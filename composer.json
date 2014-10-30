@@ -1,0 +1,27 @@
+{
+  "name": "devfactory/mollom",
+  "description": "Mollom for laravel 4",
+  "keywords": ["Laravel 4", "Laravel", "Mollom"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Da Costa Alcindo",
+      "email": "alcindo.dacosta@devfactory.ch"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "illuminate/support": "4.1.*",
+    "guzzlehttp/guzzle": "~5.0"
+  },
+  "require-dev": {
+    "mockery/mockery": "0.7.2"
+  },
+  "autoload": {
+    "files": ["src/mollom.class.inc"],
+    "psr-4": {
+      "Devfactory\\Mollom\\": "src/"
+    }
+  },
+  "minimum-stability": "stable"
+}

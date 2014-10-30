@@ -3,6 +3,8 @@ Mollom
 
 Mollom for laravel 4
 
+[![Build Status](https://travis-ci.org/DevFactoryCH/mollom.svg)](https://travis-ci.org/DevFactoryCH/mollom)
+
 ##How to setup
 
 update `composer.json` file:

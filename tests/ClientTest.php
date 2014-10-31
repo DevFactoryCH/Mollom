@@ -189,7 +189,7 @@ class ClientTest extends PHPUnit_Framework_TestCase {
 
     // Mock
     $requestInterface  = m::mock('GuzzleHttp\Message\RequestInterface');
-    $this->guzzle->shouldReceive('createRequest')->with($method, $server . '/' . $path, array($key => array('MOCK' => 'param')), $headers)->andThrow(new \GuzzleHttp\Exception\RequestException('MOCK_MESSAGE', $requestInterface));
+    $this->guzzle->shouldReceive('createRequest')->with($method, $server . '/' . $path, array($key => array('MOCK' => 'param')))->andThrow(new \GuzzleHttp\Exception\RequestException('MOCK_MESSAGE', $requestInterface));
 
     // Act
     $reflector = new ReflectionClass('Devfactory\Mollom\Client');
@@ -218,7 +218,7 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     $key = 'body';
 
     // Mock
-    $this->guzzle->shouldReceive('createRequest')->with($method, $server . '/' . $path, array($key => array('MOCK' => 'param')), $headers)->andThrow(new \GuzzleHttp\Exception\TransferException('MOCK_MESSAGE'));
+    $this->guzzle->shouldReceive('createRequest')->with($method, $server . '/' . $path, array($key => array('MOCK' => 'param')))->andThrow(new \GuzzleHttp\Exception\TransferException('MOCK_MESSAGE'));
 
     // Act
     $reflector = new ReflectionClass('Devfactory\Mollom\Client');
@@ -238,7 +238,8 @@ class ClientTest extends PHPUnit_Framework_TestCase {
    */
   public function mockRequest($method, $server, $path, $query, $headers, $key) {
     $mockRequest = m::mock('GuzzleHttp\Message\RequestInterface');
-    $this->guzzle->shouldReceive('createRequest')->with($method, $server . '/' . $path, array($key => array('MOCK' => 'param')), $headers)->andReturn($mockRequest);
+    $mockRequest->shouldReceive('setHeaders')->with($headers)->andReturn(true);
+    $this->guzzle->shouldReceive('createRequest')->with($method, $server . '/' . $path, array($key => array('MOCK' => 'param')))->andReturn($mockRequest);
 
     $response = m::mock('repsonse');
     $response->shouldReceive('getStatusCode')->andReturn('MOCK_CODE');

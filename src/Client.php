@@ -74,8 +74,8 @@ class Client extends Mollom {
     $data = array(
       'platformName' => $profile_info['distribution_name'],
       'platformVersion' => $profile_info['version'],
-      'clientName' => 'devfactory/mollom',
-      'clientVersion' => '0.1.x-dev',
+      'clientName' => 'Devfactory/Mollom',
+      'clientVersion' => '1.0.1',
     );
 
     return $data;
@@ -127,7 +127,8 @@ class Client extends Mollom {
     }
     // Create the request
     try {
-      $request = $this->client->createRequest($method, $server . '/' . $path, array($key => $query), $headers);
+      $request = $this->client->createRequest($method, $server . '/' . $path, array($key => $query));
+      $request->setHeaders($headers);
       $response = $this->client->send($request);
     } catch (\GuzzleHttp\Exception\RequestException $e) {
       return (object) array(

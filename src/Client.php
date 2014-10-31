@@ -75,7 +75,7 @@ class Client extends Mollom {
       'platformName' => $profile_info['distribution_name'],
       'platformVersion' => $profile_info['version'],
       'clientName' => 'Devfactory/Mollom',
-      'clientVersion' => '1.0.1',
+      'clientVersion' => '1.0.2',
     );
 
     return $data;

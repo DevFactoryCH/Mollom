@@ -17,7 +17,7 @@ update `composer.json` file:
 ```json
 {
     "require": {
-        "devfactory/mollom": "1.0.2"
+        "devfactory/mollom": "1.0.3"
     }
 }
 ```
@@ -44,12 +44,62 @@ alias => array(
  php artisan config:publish devfactory/mollom
 ```
 
+```php
+<?php
+
+return array(
+
+	/*
+	|--------------------------------------------------------------------------
+	| Mollom dev Mode
+	|--------------------------------------------------------------------------
+	|
+	| When the dev mode is enabled the package will use the dev.mollom.com api
+	|
+	*/
+    'dev' => false,
+
+	/*
+	|--------------------------------------------------------------------------
+	| Mollom Public Key
+	|--------------------------------------------------------------------------
+	|
+	| This key is used to comminicate with the mollom api
+    | https://mollom.com/user/xxxx/site-manager
+	|
+	*/
+    'mollom_public_key' => '',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Mollom private Key
+	|--------------------------------------------------------------------------
+	|
+	| This key is used to comminicate with the mollom api
+    | https://mollom.com/user/xxxx/site-manager
+    |
+    */
+   'mollom_private_key' => '',
+
+    /*
+    | List of ISO 639-1 language codes supported by Mollom.
+    |
+    | If your application has a predefined list of ISO 639-1 languages already,
+    | intersect your list with this via strtok($langcode, '-').
+    |
+    | example : en
+   */
+   'mollom_languages_expected' => '',
+);
+
+```
+
 ##How to use captcha
-in your HTML form add following code:
+in your blade add following code:
 
 ```php
-{{ Mollom::captcha('login') }}
-{{ Form::text('input_captcha') }}
+{{ Mollom::captcha('cpachaID') }}
+{{ Form::text('capchaInput') }}
 
 ```
 
@@ -57,7 +107,7 @@ and for validate user entered data just add `mollom` to array validation rules.
 
 ```php
 $rules = array(
-  'input_captcha' => 'required|mollom:login'
+  'capchaInput' => 'required|mollom:cpachaID'
 );
 
 $validator = Validator::make(Input::all(), $rules);
@@ -68,13 +118,15 @@ if($validator -> fails()) {
 ```
 
 ##How to check the comment spam
-This method will return
-ham - OK
-spam - is a spam
-unsure - display a captcha to be sure is not a spam
+This method will contact mollom to check a content
 
 ```php
-    $comment = array('title' => 'comment title', 'body' => 'body comment', 'name' => 'authorName', 'mail' => 'authorEmail');
+    $comment = array(
+        'title' => 'comment title',
+        'body' => 'body comment',
+        'name' => 'authorName',
+        'mail' => 'authorEmail'
+    );
 
     try {
       $result = Mollom::comment($comment);
@@ -84,4 +136,13 @@ unsure - display a captcha to be sure is not a spam
     } catch (\Devfactory\Mollom\Exceptions\SystemUnavailableException $e) {
       // Unable to contact mollom
     }
+```
+And return :
+
+```php
+'ham'    //Is not a spam
+
+'spam'   //Is a spam
+
+'unsure' //Not sure you should display a captcha
 ```

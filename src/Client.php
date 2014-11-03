@@ -75,7 +75,7 @@ class Client extends Mollom {
       'platformName' => $profile_info['distribution_name'],
       'platformVersion' => $profile_info['version'],
       'clientName' => 'Devfactory/Mollom',
-      'clientVersion' => '1.0.2',
+      'clientVersion' => '1.0.3',
     );
 
     return $data;
@@ -128,7 +128,12 @@ class Client extends Mollom {
     // Create the request
     try {
       $request = $this->client->createRequest($method, $server . '/' . $path, array($key => $query));
-      $request->setHeaders($headers);
+
+      // Do not send the headers if we are in dev mode
+      if(Config::get('mollom::dev', false)){
+        $request->setHeaders($headers);
+      }
+
       $response = $this->client->send($request);
     } catch (\GuzzleHttp\Exception\RequestException $e) {
       return (object) array(

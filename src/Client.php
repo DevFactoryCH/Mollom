@@ -130,7 +130,7 @@ class Client extends Mollom {
       $request = $this->client->createRequest($method, $server . '/' . $path, array($key => $query));
 
       // Do not send the headers if we are in dev mode
-      if(Config::get('mollom::dev', false)){
+      if(!Config::get('mollom::dev', false)){
         $request->setHeaders($headers);
       }
 

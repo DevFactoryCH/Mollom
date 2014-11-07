@@ -32,7 +32,7 @@ class MollomServiceProvider extends ServiceProvider {
 	public function register()
 	{
     $this->app['mollom'] = $this->app->share(function($app) {
-      return new Client();
+      return new Client(null, $app['request']);
     });
 	}
 

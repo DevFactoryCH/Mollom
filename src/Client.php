@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 
 use GuzzleHttp\Client as Guzzle;
@@ -10,17 +11,24 @@ use GuzzleHttp\Client as Guzzle;
 class Client extends Mollom {
 
   protected $client;
+  protected $request;
 
   /**
    * Overrides the connection timeout based on module configuration.
    *
    * @see Mollom::__construct().
    */
-  public function __construct(Guzzle $client = null) {
+  public function __construct(Guzzle $client = null, Request $request = null) {
     parent::__construct();
 
     if(Config::get('mollom::dev', false)){
       $this->server = 'dev.mollom.com';
+    }
+
+    if($request) {
+      $this->request = $request;
+    }else{
+      $this->request = new Request();
     }
 
     if($client) {
@@ -234,7 +242,7 @@ class Client extends Mollom {
         'postBody' => $comment['body'],
         'authorMail' => $comment['mail'],
         'authorName' => $comment['name'],
-        'authorIp' => $_SERVER['REMOTE_ADDR'],
+        'authorIp' => $this->request->getClientIp(),
         'authorId' => $userid, // If the author is logged in.
       ));
 

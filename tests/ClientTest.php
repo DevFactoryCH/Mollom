@@ -8,6 +8,7 @@ use Devfactory\Mollom\Mollom;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 
 use GuzzleHttp\Client as Guzzle;
@@ -16,6 +17,7 @@ class ClientTest extends PHPUnit_Framework_TestCase {
 
   protected $client;
   protected $guzzle;
+  protected $request;
 
   protected $session;
   protected $log;
@@ -47,8 +49,9 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     $this->config->shouldReceive('get')->with("mollom::mollom_private_key")->andReturn($this->privateKey);
 
     // Mock
-    $this->client = new client(
-      $this->guzzle     = m::mock('GuzzleHttp\Client')
+    $this->client = new Client(
+      $this->guzzle     = m::mock('GuzzleHttp\Client'),
+      $this->request    = m::mock('Illuminate\Http\Request')
     );
   }
 
@@ -403,21 +406,23 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     );
 
     $userid = 'MOCK_USER_ID';
-    $_SERVER['REMOTE_ADDR'] = 'MOCK_ADDR';
+    $ip = 'MOCK_IP';
 
     if(!$response){
       $response = array('id' => 'MOCK_ID', 'spamClassification' => $spamClassification);
     }
 
+    $this->request->shouldReceive('getClientIp')->andReturn($ip);
+
     // Mock internal method
-    $mock = $this->getMock('Devfactory\Mollom\Client', array('checkContent'));
+    $mock = $this->getMock('Devfactory\Mollom\Client', array('checkContent'), array(null, $this->request));
     $mock->expects($this->once())->method('checkContent')->with(array(
         'checks' => array('spam'),
         'postTitle' => $comment['title'],
         'postBody' => $comment['body'],
         'authorMail' => $comment['mail'],
         'authorName' => $comment['name'],
-        'authorIp' => $_SERVER['REMOTE_ADDR'],
+        'authorIp' => $ip,
         'authorId' => $userid, // If the author is logged in.
       ))->will($this->returnValue($response));
 

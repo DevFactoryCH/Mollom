@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1415356776">
-  <project timestamp="1415356776">
+<coverage generated="1415615988">
+  <project timestamp="1415615988">
     <package name="Devfactory\Mollom">
       <file name="/var/www/Mollom/src/Client.php">
         <class name="Client" namespace="Devfactory\Mollom">

@@ -1,7 +1,7 @@
 Mollom
 ======
 
-Mollom for laravel 4
+Mollom for laravel 4.2
 
 [![Build Status](https://travis-ci.org/DevFactoryCH/Mollom.svg)](https://travis-ci.org/DevFactoryCH/Mollom)
 [![Code Climate](https://codeclimate.com/github/DevFactoryCH/mollom/badges/gpa.svg)](https://codeclimate.com/github/DevFactoryCH/mollom)
@@ -19,7 +19,7 @@ update `composer.json` file:
 ```json
 {
     "require": {
-        "devfactory/mollom": "1.0.4"
+        "devfactory/mollom": "1.0.5"
     }
 }
 ```

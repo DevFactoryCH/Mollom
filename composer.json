@@ -1,7 +1,7 @@
 {
   "name": "devfactory/mollom",
   "description": "Mollom for laravel 4",
-  "keywords": ["Laravel 4", "Laravel", "Mollom"],
+  "keywords": ["Laravel 4", "Laravel", "Mollom", 'Spam', 'Captcha'],
   "license": "MIT",
   "authors": [
     {

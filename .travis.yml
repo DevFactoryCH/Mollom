@@ -4,17 +4,17 @@ php:
   - 5.4
   - 5.5
   - 5.6
-  - hhvm
 
-matrix:
-  allow_failures:
-    - php: hhvm
+script: phpunit  --coverage-clover build/logs/clover.xml
 
 before_script:
   - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev --no-interaction
-
-script: phpunit --coverage-clover build/logs/clover.xml
+  - php composer.phar install --dev
 
 after_script:
-  - CODECLIMATE_REPO_TOKEN="76d248ea0293ae9b6e2042efc7f8b76b53aaff85a1b1f0b89e21c35db2e17f69" vendor/bin/test-reporter
+  - php vendor/bin/test-reporter --stdout > codeclimate.json
+  - 'curl -X POST -d @codeclimate.json -H "Content-Type: application/json" -H "User-Agent: Code Climate (PHP Test Reporter v1.0.1-dev)"  https://codeclimate.com/test_reports'
+
+addons:
+  code_climate:
+    repo_token: a20da8feeecfb2896f82c7b88f1de5582795ee8efce8bbd0100ce8f99291524d

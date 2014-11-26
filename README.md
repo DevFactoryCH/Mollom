@@ -4,9 +4,9 @@ Mollom
 Mollom for laravel 4.2
 
 [![Build Status](https://travis-ci.org/DevFactoryCH/Mollom.svg)](https://travis-ci.org/DevFactoryCH/Mollom)
-[![Code Climate](https://codeclimate.com/github/DevFactoryCH/mollom/badges/gpa.svg)](https://codeclimate.com/github/DevFactoryCH/mollom)
+[![Code Climate](https://codeclimate.com/github/DevFactoryCH/Mollom/badges/gpa.svg)](https://codeclimate.com/github/DevFactoryCH/Mollom)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/DevFactoryCH/mollom/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/DevFactoryCH/mollom/?branch=master)
-[![Test Coverage](https://codeclimate.com/github/DevFactoryCH/mollom/badges/coverage.svg)](https://codeclimate.com/github/DevFactoryCH/mollom)
+[![Test Coverage](https://codeclimate.com/github/DevFactoryCH/Mollom/badges/coverage.svg)](https://codeclimate.com/github/DevFactoryCH/Mollom)
 [![Latest Stable Version](https://poser.pugx.org/devfactory/mollom/v/stable.svg)](https://packagist.org/packages/devfactory/mollom)
 [![Total Downloads](https://poser.pugx.org/devfactory/mollom/downloads.svg)](https://packagist.org/packages/devfactory/mollom)
 [![License](https://poser.pugx.org/devfactory/Mollom/license.svg)](https://packagist.org/packages/devfactory/Mollom)

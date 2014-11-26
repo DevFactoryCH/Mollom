@@ -41,10 +41,10 @@ alias => array(
 ```
 
 ##Configuration
-
-```php
+```
  php artisan config:publish devfactory/mollom
 ```
+
 
 ```php
 <?php

@@ -1,7 +1,7 @@
 Mollom
 ======
 
-Mollom for laravel 4.2
+Mollom for laravel 5
 
 [![Build Status](https://travis-ci.org/DevFactoryCH/Mollom.svg)](https://travis-ci.org/DevFactoryCH/Mollom)
 [![Code Climate](https://codeclimate.com/github/DevFactoryCH/Mollom/badges/gpa.svg)](https://codeclimate.com/github/DevFactoryCH/Mollom)
@@ -19,7 +19,8 @@ update `composer.json` file:
 ```json
 {
     "require": {
-        "devfactory/mollom": "1.0.5"
+        "guzzlehttp/guzzle": "5.*",
+        "devfactory/mollom": "2.*"
     }
 }
 ```
@@ -42,9 +43,11 @@ alias => array(
 
 ##Configuration
 ```
- php artisan config:publish devfactory/mollom
+ php artisan vendor:publish
+
 ```
 
+`config/mollom.php`
 
 ```php
 <?php
@@ -59,7 +62,7 @@ return array(
 	| When the dev mode is enabled the package will use the dev.mollom.com api
 	|
 	*/
-    'dev' => false,
+        'dev' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -67,10 +70,10 @@ return array(
 	|--------------------------------------------------------------------------
 	|
 	| This key is used to comminicate with the mollom api
-    | https://mollom.com/user/xxxx/site-manager
+        | https://mollom.com/user/xxxx/site-manager
 	|
 	*/
-    'mollom_public_key' => '',
+        'mollom_public_key' => '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,20 +81,20 @@ return array(
 	|--------------------------------------------------------------------------
 	|
 	| This key is used to comminicate with the mollom api
-    | https://mollom.com/user/xxxx/site-manager
-    |
-    */
-   'mollom_private_key' => '',
+        | https://mollom.com/user/xxxx/site-manager
+        |
+        */
+        'mollom_private_key' => '',
 
-    /*
-    | List of ISO 639-1 language codes supported by Mollom.
-    |
-    | If your application has a predefined list of ISO 639-1 languages already,
-    | intersect your list with this via strtok($langcode, '-').
-    |
-    | example : en
-   */
-   'mollom_languages_expected' => '',
+        /*
+        | List of ISO 639-1 language codes supported by Mollom.
+        |
+        | If your application has a predefined list of ISO 639-1 languages already,
+        | intersect your list with this via strtok($langcode, '-').
+        |
+        | example : en
+       */
+       'mollom_languages_expected' => '',
 );
 
 ```
@@ -100,8 +103,8 @@ return array(
 in your blade add following code:
 
 ```php
-{{ Mollom::captcha('cpachaID') }}
-{{ Form::text('capchaInput') }}
+{!! Mollom::captcha('cpachaID') !!}
+{!! Form::text('capchaInput') !!}
 
 ```
 

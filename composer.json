@@ -1,7 +1,8 @@
 {
   "name": "devfactory/mollom",
-  "description": "Mollom for laravel 4",
-  "keywords": ["Laravel 4", "Laravel", "Mollom", "Spam", "Captcha"],
+  "version": "2.0",
+  "description": "Mollom for laravel 5",
+  "keywords": ["Laravel 5", "Laravel", "Mollom", "Spam", "Captcha"],
   "license": "MIT",
   "authors": [
     {
@@ -11,8 +12,7 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "illuminate/support": "4.2.*",
-    "guzzlehttp/guzzle": "~5.0"
+    "illuminate/support": "5.*"
   },
   "require-dev": {
     "illuminate/http": "4.2.*",

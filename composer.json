@@ -1,6 +1,5 @@
 {
   "name": "devfactory/mollom",
-  "version": "2.0",
   "description": "Mollom for laravel 5",
   "keywords": ["Laravel 5", "Laravel", "Mollom", "Spam", "Captcha"],
   "license": "MIT",
@@ -12,10 +11,10 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "illuminate/support": "5.*"
+    "illuminate/support": "5.*",
   },
   "require-dev": {
-    "illuminate/http": "4.2.*",
+    "illuminate/http": "5.*",
     "mockery/mockery": "0.7.2",
     "codeclimate/php-test-reporter": "dev-master"
   },

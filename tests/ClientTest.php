@@ -44,9 +44,9 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     \Illuminate\Support\Facades\Config::swap($this->config = m::mock('urlMock'));
 
     // Mock facades
-    $this->config->shouldReceive('get')->with('mollom::dev', false)->andReturn(true);
-    $this->config->shouldReceive('get')->with("mollom::mollom_public_key")->andReturn($this->publicKey);
-    $this->config->shouldReceive('get')->with("mollom::mollom_private_key")->andReturn($this->privateKey);
+    $this->config->shouldReceive('get')->with('mollom.dev', false)->andReturn(true);
+    $this->config->shouldReceive('get')->with("mollom.mollom_public_key")->andReturn($this->publicKey);
+    $this->config->shouldReceive('get')->with("mollom.mollom_private_key")->andReturn($this->privateKey);
 
     // Mock
     $this->client = new Client(
@@ -73,7 +73,7 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     $name = 'publicKey';
 
     // Mock
-    $this->config->shouldReceive('get')->with('mollom::mollom_public_key')->andReturn($this->publicKey);
+    $this->config->shouldReceive('get')->with('mollom.mollom_public_key')->andReturn($this->publicKey);
 
     // Act
     $this->assertEquals($this->publicKey, $this->client->loadConfiguration($name));
@@ -86,7 +86,7 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     $name = 'privateKey';
 
     // Mock
-    $this->config->shouldReceive('get')->with('mollom::mollom_private_key')->andReturn($this->privateKey);
+    $this->config->shouldReceive('get')->with('mollom.mollom_private_key')->andReturn($this->privateKey);
 
     // Act
     $this->assertEquals($this->privateKey, $this->client->loadConfiguration($name));
@@ -99,7 +99,7 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     $name = 'expectedLanguages';
 
     // Mock
-    $this->config->shouldReceive('get')->with('mollom::mollom_languages_expected')->andReturn($this->language);
+    $this->config->shouldReceive('get')->with('mollom.mollom_languages_expected')->andReturn($this->language);
 
     // Act
     $this->assertEquals($this->language, $this->client->loadConfiguration($name));

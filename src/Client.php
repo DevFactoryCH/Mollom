@@ -21,7 +21,7 @@ class Client extends Mollom {
   public function __construct(Guzzle $client = null, Request $request = null) {
     parent::__construct();
 
-    if(config('mollom.dev', false)){
+    if(Config::get('mollom.dev', false)){
       $this->server = 'dev.mollom.com';
     }
 
@@ -54,7 +54,7 @@ class Client extends Mollom {
    */
   public function loadConfiguration($name) {
     $name = $this->configuration_map[$name];
-    return config('mollom.' . $name);
+    return Config::get('mollom.' . $name);
   }
 
   /**
@@ -138,7 +138,7 @@ class Client extends Mollom {
       $request = $this->client->createRequest($method, $server . '/' . $path, array($key => $query));
 
       // Do not send the headers if we are in dev mode
-      if(!config('mollom.dev', false)){
+      if(!Config::get('mollom.dev', false)){
         $request->setHeaders($headers);
       }
 

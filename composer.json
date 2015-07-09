@@ -16,6 +16,7 @@
   "require-dev": {
     "illuminate/http": "5.*",
     "mockery/mockery": "0.7.2",
+    "guzzlehttp/guzzle": "~5.0",
     "codeclimate/php-test-reporter": "dev-master"
   },
   "autoload": {

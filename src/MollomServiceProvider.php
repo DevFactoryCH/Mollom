@@ -48,7 +48,7 @@ class MollomServiceProvider extends ServiceProvider {
    * @return void
    */
   protected function registerServices() {
-    $this->app->bindShared('mollom', function ($app) {
+    $this->app->singleton('mollom', function ($app) {
       return new Client(null, $app['request']);
     });
   }
